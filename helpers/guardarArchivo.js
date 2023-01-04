@@ -1,17 +1,18 @@
-import fs from 'fs';
+import fs from 'node:fs';
+import path from 'node:path';
 
-const archivo = './db/data.json'
+const filePath = path.join(process.cwd(), './db/data.json');
 
 const guardarDB = ( datos ) => {
-  fs.writeFileSync( archivo, JSON.stringify(datos));
+  fs.writeFileSync( filePath, JSON.stringify(datos, null, 2), 'utf-8');
 };
 
 const cargarDB = () => {
-  if(!fs.existsSync(archivo)){
+  if(!fs.existsSync(filePath)){
     return null;
   }
 
-  const file = fs.readFileSync( archivo, { encoding: 'utf-8'});
+  const file = fs.readFileSync( filePath, { encoding: 'utf-8'});
   return JSON.parse( file );
 };
 
